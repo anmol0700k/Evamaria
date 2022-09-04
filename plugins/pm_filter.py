@@ -181,26 +181,22 @@ async def next_page(bot, query):
             ]
             for file in files
         ]
-    else:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
-                    callback_data=f'files_#{file.file_id}',
-                ),
-            ]
-            for file in files
+        
+    btn.insert(0,
+        [
+            InlineKeyboardButton('❓ʜᴏᴡ', url='https://graph.org/𝙃𝙤𝙬-𝙏𝙤-𝘿𝙤𝙬𝙣𝙡𝙤𝙖𝙙-𝘼𝙣𝙮-𝙈𝙤𝙫𝙞𝙚-𝙁𝙧𝙤𝙢-𝘾𝙖𝙥𝙩𝙖𝙞𝙣-𝘼𝙪𝙩𝙤𝙗𝙤𝙩-08-22'),
+            InlineKeyboardButton('🆘ꜱᴏꜱ', url='https://t.me/Anmol0700'),
+            InlineKeyboardButton('😈ɢʀᴏᴜᴘ', url='https://t.me/Movies_Samrajya'),
+            InlineKeyboardButton('🔗ʙᴀᴄᴋᴜᴘ', url='https://t.me/Pros_Movies_Empire'),
         ]
+    )
 
-    if 0 < offset <= 6:
+    if 0 < offset <= 10:
         off_set = 0
     elif offset == 0:
         off_set = None
     else:
-        off_set = offset - 6
+        off_set = offset - 10
     if n_offset == 0:
         btn.append(
             [InlineKeyboardButton("⬅️ 𝗕𝗮𝗰𝗸", callback_data=f"next_{req}_{key}_{off_set}"),
@@ -1348,39 +1344,33 @@ async def auto_filter(client, msg, spoll=False):
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
         btn = [
-            [
                 InlineKeyboardButton(
                     text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'{pre}#{file.file_id}'
                 ),
             ]
             for file in files
         ]
-    else:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{file.file_name}",
-                    callback_data=f'{pre}#{file.file_id}',
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
-                    callback_data=f'{pre}_#{file.file_id}',
-                ),
-            ]
-            for file in files
+        
+    btn.insert(0,
+        [
+            InlineKeyboardButton('❓ʜᴏᴡ', url='https://graph.org/𝙃𝙤𝙬-𝙏𝙤-𝘿𝙤𝙬𝙣𝙡𝙤𝙖𝙙-𝘼𝙣𝙮-𝙈𝙤𝙫𝙞𝙚-𝙁𝙧𝙤𝙢-𝘾𝙖𝙥𝙩𝙖𝙞𝙣-𝘼𝙪𝙩𝙤𝙗𝙤𝙩-08-22'),
+            InlineKeyboardButton('🆘ꜱᴏꜱ', url='https://t.me/Anmol0700'),
+            InlineKeyboardButton('😈ɢʀᴏᴜᴘ', url='https://t.me/Movies_Samrajya'),
+            InlineKeyboardButton('🔗ʙᴀᴄᴋᴜᴘ', url='https://t.me/Pros_Movies_Empire'),
         ]
-
+    )
+        
     if offset != "":
-        key = f"{message.chat.id}-{message.message_id}"
+        key = f"{message.chat.id}-{message.id}"
         BUTTONS[key] = search
         req = message.from_user.id if message.from_user else 0
         btn.append(
-            [InlineKeyboardButton(text=f"📄 𝗣𝗮𝗴𝗲 1/{round(int(total_results) / 6)}", callback_data="pages"),
-             InlineKeyboardButton(text="𝗡𝗲𝘅𝘁 ➡️", callback_data=f"next_{req}_{key}_{offset}")]
+            [InlineKeyboardButton(text=f"🗓 1/{math.ceil(int(total_results) / 10)}", callback_data="pages"),
+             InlineKeyboardButton(text="NEXT ⏩", callback_data=f"next_{req}_{key}_{offset}")]
         )
     else:
         btn.append(
-            [InlineKeyboardButton(text="📄 𝗣𝗮𝗴𝗲 1/1", callback_data="pages")]
+            [InlineKeyboardButton(text="👆ᴄʟɪᴄᴋ ᴀʙᴏᴠᴇ ʟɪɴᴋꜱ ᴛᴏ ɢᴇᴛ ᴍᴏᴠɪᴇꜱ👆", callback_data="pages")]
         )
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
     TEMPLATE = settings['template']
@@ -1419,7 +1409,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"<b>🎬 Title:</b> {search}\n\n<b>👥 Requested by: {message.from_user.mention}</b>\n<b>© Powered by: <a href='https://t.me/AllMoviesHub_Official'>{message.chat.title}</a></b>\n\n<b>✍️ Note:</b> <s>This message will be Auto-deleted after 5 minutes to avoid copyright issues.</s>"
+        cap = f"<b>🎬 Title:</b> {search}\n\n<b>👥 Requested by: {message.from_user.mention}</b>\n<b>© Powered by: <a href='https://t.me/AllMoviesHub_Official'>{message.chat.title}</a></b>\n\n<b>✍️ Note:</b> <s>This message will be Auto-deleted after 1 Hour to avoid copyright issues.</s>"
     if imdb and imdb.get('poster'):
         try:
             hehe = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(btn))
