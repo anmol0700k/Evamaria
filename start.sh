@@ -1,7 +1,7 @@
 if [ -z $UPSTREAM_REPO ]
 then
   echo "Cloning main Repository"
-  git clone https://github.com/Anmolkanchru/Captain-v2.git /Captain-v2
+  git clone https://github.com/anmol0700k/Evamaria.git /Captain-v2
 else
   echo "Cloning Custom Repo from $UPSTREAM_REPO "
   git clone $UPSTREAM_REPO /Captain-v2
